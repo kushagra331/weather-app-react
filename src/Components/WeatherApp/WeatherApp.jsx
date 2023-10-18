@@ -10,7 +10,7 @@ import snow_icon from '../Assets/snow.png';
 import wind_icon from '../Assets/wind.png';
 
 
-//
+//Weather App
 const WeatherApp =()=>{
     let api_key='206d9b9c1eddcbb5d099a06be09c5b41';
 
@@ -33,7 +33,7 @@ const WeatherApp =()=>{
         wind[0].innerHTML = Math.floor(data.wind.speed)+' km/h';
         temprature[0].innerHTML = Math.floor(data.main.temp)+' °c';
         location[0].innerHTML = data.name;
-        
+
         if(data.weather[0].icon==='01d' || data.weather[0].icon==='01n'){
             setWicon(clear_icon);
         }else if(data.weather[0].icon==='02d' || data.weather[0].icon==='02n'){
