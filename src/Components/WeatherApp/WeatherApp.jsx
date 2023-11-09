@@ -9,25 +9,30 @@ import rain_icon from '../Assets/rain.png';
 import snow_icon from '../Assets/snow.png';
 import wind_icon from '../Assets/wind.png';
 
-
 //Weather App
 const WeatherApp =()=>{
     let api_key='206d9b9c1eddcbb5d099a06be09c5b41';
 
     const [wicon,setWicon] = useState(cloud_icon);
-
     const search = async () => {
         const element= document.getElementsByClassName("cityInput");
-        if(element[0].value===""){
-            return 0;
-        }
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${element[0].value}&units=Metric&appid=${api_key}`;
-        let response = await fetch(url);
-        let data = await response.json();
         const humidity = document.getElementsByClassName("humidity-percent");
         const wind = document.getElementsByClassName("wind-rate");
         const temprature = document.getElementsByClassName("weather-temp");
         const location = document.getElementsByClassName("weather-location");
+        
+        if(element[0].value===""){
+            return 0;
+        }
+        //https://api.openweathermap.org/data/2.5/weather?q=London&units=Metric&appid=206d9b9c1eddcbb5d099a06be09c5b41
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${element[0].value}&units=Metric&appid=${api_key}`;
+        let response = await fetch(url);
+        if(response['status']!==200){
+            console.log('City not found');
+            location[0].innerHTML = 'City not found';
+            return 0;
+        }
+        let data = await response.json();
         
         humidity[0].innerHTML = data.main.humidity+"%";
         wind[0].innerHTML = Math.floor(data.wind.speed)+' km/h';
